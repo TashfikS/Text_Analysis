@@ -1,45 +1,61 @@
-# Text Similarity Service
+# Text Analytics Service
 
-The Text Similarity Service is a RESTful API that analyzes the similarity between two text inputs. It calculates the percentage of unique words that are common between the texts, ignoring case and order. The service is implemented using ASP.NET Core 6.
+The Text Analytics Service is a RESTful API that analyzes text input and provides various analytics based on the input string. The service is implemented using ASP.NET Core 6.
 
 ## API Endpoints
 
-### Text Similarity
+### Text Analysis
 
-- **Endpoint:** `POST /similarities`
-- **Description:** Calculates the similarity between two texts.
+- **Endpoint:** `POST /analyze`
+- **Description:** Analyzes the input text and returns various analytics.
 - **Request Body:**
-  - `text1` (string): The first text input.
-  - `text2` (string): The second text input.
+  - `text` (string): The text input to be analyzed.
 - **Response:**
-  - `similarity` (number): The similarity percentage between the texts.
+  - `charCount` (number): The number of characters in the text (excluding spaces).
+  - `wordCount` (number): The number of words in the text.
+  - `sentenceCount` (number): The number of sentences in the text.
+  - `mostFrequentWord` (object): An object containing the most frequent word and its frequency.
+    - `word` (string): The most frequent word.
+    - `frequency` (number): The frequency of the most frequent word.
+  - `longestWord` (object): An object containing the longest word and its length.
+    - `word` (string): The longest word.
+    - `length` (number): The length of the longest word.
 - **Example:**
   - Request Body:
     ```json
     {
-      "text1": "The quick brown fox jumps over the lazy dog",
-      "text2": "The dog was not amused"
+      "text": "The quick brown fox jumps over the lazy dog. The dog was not amused."
     }
     ```
   - Response Body:
     ```json
     {
-      "similarity": 36.67
+      "charCount": 54,
+      "wordCount": 13,
+      "sentenceCount": 2,
+      "mostFrequentWord": {
+        "word": "the",
+        "frequency": 3
+      },
+      "longestWord": {
+        "word": "amused",
+        "length": 6
+      }
     }
     ```
 
 ## Additional Requirements
 
-The Text Similarity Service meets the following additional requirements:
+The Text Analytics Service meets the following additional requirements:
 
-- **Data Validation:** The service ensures that the input data is a valid string. If either `text1` or `text2` is missing or empty, a `400 Bad Request` response is returned.
+- **Data Validation:** The service ensures that the input data is a valid string. If the `text` field is missing or empty, a `400 Bad Request` response is returned.
 - **Error Handling:** The service handles errors gracefully and returns appropriate HTTP status codes and error messages.
-- **Testing:** Unit tests have been written to ensure the service functions as expected. The tests cover scenarios such as valid input and missing input, verifying the calculated similarity and error responses.
-- **Documentation:** This README file serves as documentation, providing clear instructions on how to set up, run, and use the Text Similarity Service.
+- **Testing:** Unit tests have been written to ensure the service functions as expected. The tests cover scenarios such as valid input, missing input, and verifying the calculated analytics and error responses.
+- **Documentation:** This README file serves as documentation, providing clear instructions on how to set up, run, and use the Text Analytics Service.
 
 ## Setup and Run
 
-To set up and run the Text Similarity Service, follow these steps:
+To set up and run the Text Analytics Service, follow these steps:
 
 1. Clone the repository or download the source code.
 
@@ -64,3 +80,5 @@ To run the unit tests:
 3. Run the unit tests.
 
 4. The tests will be executed, and the results will be displayed.
+
+Please feel free to modify or enhance the content as needed to meet your specific requirements.
